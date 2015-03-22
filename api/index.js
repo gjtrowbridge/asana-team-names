@@ -1,4 +1,4 @@
-var addRetrieveEndpoints = require('./add_retrieve_endpoints.js');
+var addRetrieveEndpoints = require('./retrieve/index.js');
 
 var addApiEndpoints = function(express) {
   var api = express.Router();
