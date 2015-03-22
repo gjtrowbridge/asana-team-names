@@ -1,11 +1,16 @@
 {
   "name": "asana-names",
   "version": "0.0.0",
-  "description": "Practice everyone's name!",
+  "description": "Learn everyone's name!",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": ""
   },
   "author": "Greg Trowbridge",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "browserify": "^9.0.3",
+    "react": "^0.13.1"
+  }
 }
