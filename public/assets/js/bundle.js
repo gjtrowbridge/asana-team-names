@@ -19717,23 +19717,57 @@ module.exports = require('./lib/React');
 
 },{"./lib/React":29}],157:[function(require,module,exports){
 var React = require('react');
-var Person = require('../person/Person.jsx');
 
-var Page = React.createClass({displayName: "Page",
+var LoadingScreen = React.createClass({displayName: "LoadingScreen",
   render: function() {
     return (
-      React.createElement("div", null, 
-        React.createElement(Person, null)
+      React.createElement("div", {className: "loading"}, 
+        React.createElement("img", {src: "/assets/images/cat_loading.gif"}), 
+        React.createElement("p", null, "Loading...")
       )
     );
   }
-})
+});
+
+module.exports = LoadingScreen;
+
+
+},{"react":156}],158:[function(require,module,exports){
+var React = require('react');
+var Person = require('../person/Person.jsx');
+var LoadingScreen = require('../loading_screen/LoadingScreen.jsx');
+
+var Page = React.createClass({displayName: "Page",
+  retrieveTeamData: function() {
+    console.log('retrievings');
+  },
+  getInitialState: function() {
+    return {
+      loaded: false
+    };
+  },
+  render: function() {
+    this.retrieveTeamData();
+    var mainScreen;
+    if (this.state.loaded) {
+      mainScreen = React.createElement(Person, null)
+    } else {
+      mainScreen = React.createElement(LoadingScreen, null)
+    }
+    return (
+      React.createElement("div", {className: "col-2-4"}, 
+        React.createElement("h1", null, "Asanames"), 
+        mainScreen
+      )
+    );
+  }
+});
 
 module.exports = Page;
 
 
 
-},{"../person/Person.jsx":158,"react":156}],158:[function(require,module,exports){
+},{"../loading_screen/LoadingScreen.jsx":157,"../person/Person.jsx":159,"react":156}],159:[function(require,module,exports){
 var React = require('react');
 
 var Person = React.createClass({displayName: "Person",
@@ -19748,7 +19782,7 @@ module.exports = Person;
 
 
 
-},{"react":156}],159:[function(require,module,exports){
+},{"react":156}],160:[function(require,module,exports){
 var React = require('react');
 var Page = require('./components/page/Page.jsx')
 
@@ -19758,4 +19792,4 @@ React.render(
 )
 
 
-},{"./components/page/Page.jsx":157,"react":156}]},{},[159]);
+},{"./components/page/Page.jsx":158,"react":156}]},{},[160]);

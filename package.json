@@ -5,8 +5,12 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "browserify -t [reactify --es6] src/main.js > public/assets/js/bundle.js",
-    "watch": "watchify -t [reactify --es6] src/main.js -o public/assets/js/bundle.js"
+    "build": "npm run build-css && npm run build-react",
+    "watch": "npm run watch-css & npm run watch-react & nodemon server",
+    "build-css": "stylus --include-css src/ --out public/assets/styles",
+    "watch-css": "stylus -w --include-css src/ --out public/assets/styles",
+    "build-react": "browserify -t [reactify --es6] src/main.js > public/assets/js/bundle.js",
+    "watch-react": "watchify -t [reactify --es6] src/main.js -o public/assets/js/bundle.js"
   },
   "author": "Greg Trowbridge",
   "license": "ISC",
@@ -20,6 +24,7 @@
     "react": "^0.13.1",
     "reactify": "^1.1.0",
     "request": "^2.53.0",
+    "stylus": "^0.50.0",
     "watchify": "^2.5.0"
   }
 }
