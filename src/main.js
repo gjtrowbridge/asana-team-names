@@ -2,6 +2,6 @@ var React = require('react');
 var Page = require('./components/page/Page.jsx')
 
 React.render(
-  <Page />,
+  <Page src="/api/retrieve" />,
   document.getElementById('mountPoint')
 )

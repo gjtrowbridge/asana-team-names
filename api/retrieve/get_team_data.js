@@ -15,7 +15,7 @@ var getTeamDataPromise = Q.nfcall(request, rootUrl + '/team')
 .then(function(response) {
   // Initialize the team data object
   teamData = {
-    imageUrl: '',
+    backgroundImage: '',
     people: {},
     missingPeople: {}
   };
@@ -84,7 +84,7 @@ var getTeamDataPromise = Q.nfcall(request, rootUrl + '/team')
                 var url = decl.value;
                 url = url.replace('url("..', '');
                 url = url.replace('")', '');
-                teamData.imageUrl = rootUrl + '/assets' + url;
+                teamData.backgroundImage = rootUrl + '/assets' + url;
               }
             });
           } else if (classes[1].slice(0, 7) === '.sprite') {
