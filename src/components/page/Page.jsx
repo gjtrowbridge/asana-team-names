@@ -34,7 +34,7 @@ var Page = React.createClass({
       var peopleCopy = people.slice();
       person.guessOptions = [peopleCopy.splice(index, 1)[0].name];
 
-      for (var i=0; i<NUM_GUESS_OPTIONS; i++) {
+      for (var i=0; i<NUM_GUESS_OPTIONS - 1; i++) {
         var guessOption = peopleCopy.splice(getRandomIndex(peopleCopy.length), 1)[0].name;
         person.guessOptions.push(guessOption);
       }

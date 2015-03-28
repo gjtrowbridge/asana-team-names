@@ -1,11 +1,18 @@
 @require '../node_modules/normalize-css/normalize.css'
 
+asana-gray = #E5E5E5
+asana-blue = #1F8DD6
+
 *,
 *:before,
 *:after {
   -webkit-box-sizing: border-box;
      -moz-box-sizing: border-box;
           box-sizing: border-box;
+}
+
+body {
+  background: radial-gradient(white, asana-gray);
 }
 
 .limited-width {
@@ -21,6 +28,7 @@ h1, .loading {
 .col-2-4,
 {
   display:inline-block;
+  vertical-align: top;
 }
 
 .col-1-1 {

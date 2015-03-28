@@ -412,6 +412,9 @@ table {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+body {
+  background: radial-gradient(#fff, #e5e5e5);
+}
 .limited-width {
   width: 600px;
 }
@@ -423,6 +426,7 @@ h1,
 .col-1-4,
 .col-2-4 {
   display: inline-block;
+  vertical-align: top;
 }
 .col-1-1 {
   width: 100%;
@@ -437,28 +441,40 @@ h1,
   margin-left: auto;
   margin-right: auto;
 }
-.stick-figure {
+.Person .stick-figure {
   margin: 0 auto;
   display: block;
   position: relative;
   z-index: -1;
   height: 450px;
 }
-.stick-figure.neutral {
+.Person .stick-figure.neutral {
   top: -217px;
   left: 9px;
   margin-bottom: -217px;
 }
-.stick-figure.correct {
+.Person .stick-figure.correct {
   top: -209px;
   left: -19px;
   margin-bottom: -209px;
 }
-.stick-figure.incorrect {
+.Person .stick-figure.incorrect {
   top: -217px;
   left: 9px;
   margin-bottom: -217px;
 }
 .Person h1 {
   margin-bottom: 120px;
+}
+.Person .info-section {
+  height: 120px;
+}
+.Person button {
+  display: inline-block;
+  width: 25%;
+  padding: 10px;
+  height: 60px;
+  border-radius: 5%;
+  background-color: #1f8dd6;
+  color: #e5e5e5;
 }

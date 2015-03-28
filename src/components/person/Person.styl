@@ -1,26 +1,43 @@
-.stick-figure {
-  margin: 0 auto;
-  display: block;
-  position: relative;
-  z-index: -1;
-  height:450px;
-  &.neutral {
-    top: -217px;
-    left: 9px;
-    margin-bottom: -217px;
+.Person {
+  .stick-figure {
+    margin: 0 auto;
+    display: block;
+    position: relative;
+    z-index: -1;
+    height:450px;
+    &.neutral {
+      top: -217px;
+      left: 9px;
+      margin-bottom: -217px;
+    }
+    &.correct {
+      top: -209px;
+      left: -19px;
+      margin-bottom: -209px;
+    }
+    &.incorrect {
+      top: -217px;
+      left: 9px;
+      margin-bottom: -217px;
+    }
   }
-  &.correct {
-    top: -209px;
-    left: -19px;
-    margin-bottom: -209px;
-  }
-  &.incorrect {
-    top: -217px;
-    left: 9px;
-    margin-bottom: -217px;
-  }
-}
 
-.Person h1 {
-  margin-bottom:120px;
+  h1 {
+    margin-bottom:120px;
+  }
+
+  .info-section {
+    height: 120px;
+  }
+  
+  button {
+    display:inline-block;
+    width: 25%;
+    padding: 10px;
+    height: 60px;
+    border-radius: 5%;
+    background-color: asana-blue;
+    color: asana-gray;
+  }
+  
 }

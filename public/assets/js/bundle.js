@@ -40600,7 +40600,7 @@ var Page = React.createClass({displayName: "Page",
       var peopleCopy = people.slice();
       person.guessOptions = [peopleCopy.splice(index, 1)[0].name];
 
-      for (var i=0; i<NUM_GUESS_OPTIONS; i++) {
+      for (var i=0; i<NUM_GUESS_OPTIONS - 1; i++) {
         var guessOption = peopleCopy.splice(getRandomIndex(peopleCopy.length), 1)[0].name;
         person.guessOptions.push(guessOption);
       }
@@ -40699,14 +40699,18 @@ var Person = React.createClass({displayName: "Person",
       guessClass = 'correct';
     }
 
+    var description = React.createElement("p", null, me.props.description)
+
     return (
       React.createElement("div", {className: "Person limited-width horizontal-center"}, 
         React.createElement("h1", null,  me.state.guess === undefined ? ' ' : me.props.name), 
         React.createElement("div", {className: "image horizontal-center", style: imgStyle}), 
         React.createElement("img", {className: 'stick-figure ' + guessClass, 
             src: '/assets/images/' + guessImages[guessClass]}), 
-        React.createElement("p", null, me.props.description), 
-        guessButtons
+        React.createElement("div", {className: "info-section"}, 
+          me.state.guess !== undefined ? description : '', 
+          me.state.guess === undefined ? guessButtons : ''
+        )
       )
     );
   }
