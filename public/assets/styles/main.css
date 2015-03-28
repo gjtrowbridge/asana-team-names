@@ -438,3 +438,22 @@ h1,
   margin-left: auto;
   margin-right: auto;
 }
+.stick-figure {
+  margin: 0 auto;
+  display: block;
+  position: relative;
+  z-index: -1;
+}
+.stick-figure.neutral {
+  top: -100px;
+  margin-bottom: -100px;
+}
+.stick-figure.correct {
+  top: -109px;
+  left: -29px;
+  margin-bottom: -109px;
+}
+.stick-figure.incorrect {
+  top: -75px;
+  margin-bottom: -75px;
+}

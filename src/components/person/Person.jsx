@@ -7,14 +7,9 @@ var Person = React.createClass({
       guess: undefined
     };
   },
-  resolveGuess: function(correct) {
-    if (correct) {
-      console.log('correct!');
-    } else {
-      console.log('wrong!');
-    }
+  resolveGuess: function(isCorrect) {
     this.setState({
-      guess: correct
+      guess: isCorrect
     });
   },
   render: function() {
@@ -26,30 +21,33 @@ var Person = React.createClass({
       'backgroundPosition': me.props.backgroundPosition,
       'borderRadius': '50%'
     };
-    var fullView = (
-      <div className="Person">
-        <h1>{me.props.name}</h1>
-        <div className="image" style={imgStyle}></div>
-        <p>{me.props.description}</p>
-        <button onClick={me.props.nextPersonFunction}>Next Person</button>
-      </div>
-    );
+    var guessImages = {
+      'correct': 'correct.jpeg',
+      'incorrect': 'incorrect.jpg',
+      'neutral': 'neutral.png'
+    };
     var guessButtons = _.map(me.props.guessOptions, function(guessOption, index) {
       var correct = guessOption === me.props.name;
       return <button key={index} onClick={me.resolveGuess.bind(me, correct)}>{guessOption}</button>
     });
-    
-    var guessView = (
+
+    var guessClass = 'neutral';
+    if (me.state.guess === false) {
+      guessClass = 'incorrect';
+    } else if (me.state.guess === true) {
+      guessClass = 'correct';
+    }
+
+    return (
       <div className="Person">
+        <h1>{ me.state.guess === undefined ? '?' : me.props.name }</h1>
         <div className="image horizontal-center" style={imgStyle}></div>
+        <img className={'stick-figure ' + guessClass}
+            src={'/assets/images/' + guessImages[guessClass]} />
+        <p>{me.props.description}</p>
         {guessButtons}
       </div>
     );
-    if (me.state.guess === undefined) {
-      return guessView;
-    } else {
-      return fullView;
-    }
   }
 });
 

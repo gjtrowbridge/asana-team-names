@@ -40667,14 +40667,9 @@ var Person = React.createClass({displayName: "Person",
       guess: undefined
     };
   },
-  resolveGuess: function(correct) {
-    if (correct) {
-      console.log('correct!');
-    } else {
-      console.log('wrong!');
-    }
+  resolveGuess: function(isCorrect) {
     this.setState({
-      guess: correct
+      guess: isCorrect
     });
   },
   render: function() {
@@ -40686,30 +40681,33 @@ var Person = React.createClass({displayName: "Person",
       'backgroundPosition': me.props.backgroundPosition,
       'borderRadius': '50%'
     };
-    var fullView = (
-      React.createElement("div", {className: "Person"}, 
-        React.createElement("h1", null, me.props.name), 
-        React.createElement("div", {className: "image", style: imgStyle}), 
-        React.createElement("p", null, me.props.description), 
-        React.createElement("button", {onClick: me.props.nextPersonFunction}, "Next Person")
-      )
-    );
+    var guessImages = {
+      'correct': 'correct.jpeg',
+      'incorrect': 'incorrect.jpg',
+      'neutral': 'neutral.png'
+    };
     var guessButtons = _.map(me.props.guessOptions, function(guessOption, index) {
       var correct = guessOption === me.props.name;
       return React.createElement("button", {key: index, onClick: me.resolveGuess.bind(me, correct)}, guessOption)
     });
-    
-    var guessView = (
+
+    var guessClass = 'neutral';
+    if (me.state.guess === false) {
+      guessClass = 'incorrect';
+    } else if (me.state.guess === true) {
+      guessClass = 'correct';
+    }
+
+    return (
       React.createElement("div", {className: "Person"}, 
+        React.createElement("h1", null,  me.state.guess === undefined ? '?' : me.props.name), 
         React.createElement("div", {className: "image horizontal-center", style: imgStyle}), 
+        React.createElement("img", {className: 'stick-figure ' + guessClass, 
+            src: '/assets/images/' + guessImages[guessClass]}), 
+        React.createElement("p", null, me.props.description), 
         guessButtons
       )
     );
-    if (me.state.guess === undefined) {
-      return guessView;
-    } else {
-      return fullView;
-    }
   }
 });
 
