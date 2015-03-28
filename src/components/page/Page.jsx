@@ -2,20 +2,12 @@ var React = require('react');
 var Person = require('../person/Person.jsx');
 var LoadingScreen = require('../loading_screen/LoadingScreen.jsx');
 var $ = require('jquery');
+var shuffle = require('mess');
 
 var Page = React.createClass({
   getInitialState: function() {
     return {
       loaded: false
-    };
-    return {
-      loaded: true,
-      data: {},
-      people: [{
-        name:'bill',
-        description: 'hi there'
-      }],
-      currentIndex: 0
     };
   },
   moveToNextPerson: function() {
@@ -38,7 +30,7 @@ var Page = React.createClass({
         }
         me.setState({
           loaded: true,
-          people: people,
+          people: shuffle(people),
           currentIndex: 0,
           backgroundImage: result.data.backgroundImage
         });

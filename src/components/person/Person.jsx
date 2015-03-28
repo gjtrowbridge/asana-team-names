@@ -1,14 +1,19 @@
 var React = require('react');
 
 var Person = React.createClass({
+  getInitialState: function() {
+    return {
+      guess: undefined
+    };
+  },
   render: function() {
     var imgStyle = {
-      'background-image': 'url(' + this.props.backgroundImage + ')',
+      'backgroundImage': 'url(' + this.props.backgroundImage + ')',
       'width': '100px',
       'height': '100px',
-      'background-position': this.props.backgroundPosition
+      'backgroundPosition': this.props.backgroundPosition
     };
-    return (
+    var fullView = (
       <div className="Person">
         <h1>{this.props.name}</h1>
         <div className="image" style={imgStyle}></div>
@@ -16,8 +21,14 @@ var Person = React.createClass({
         <button onClick={this.props.clickFunc}>Next Person</button>
       </div>
     );
+    var guessView = (
+      <div className="Person">
+        <div className="image" style={imgStyle}></div>
+      </div>
+    );
+    return fullView;
   }
-})
+});
 
 module.exports = Person;
 
