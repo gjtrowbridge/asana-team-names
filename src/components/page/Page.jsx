@@ -70,20 +70,21 @@ var Page = React.createClass({
     var personData;
     if (me.state.loaded) {
       personData = me.state.people[me.state.currentIndex];
-      return(
+      mainScreen = (
         <Person {...personData}
-          key={me.state.currentIndex}
-          nextPersonFunction={me.changeCurrentIndex.bind(me, 1)}
-          backgroundImage={me.state.backgroundImage} />
+            className="container limited-width"
+            key={me.state.currentIndex}
+            nextPersonFunction={me.changeCurrentIndex.bind(me, 1)}
+            backgroundImage={me.state.backgroundImage} />
       )
     } else {
-      return <LoadingScreen />
+      mainScreen = <LoadingScreen  />
     }
     return (
-      <div className="">
+      <div className="full-screen">
         {mainScreen}
       </div>
-    );
+    )
   }
 });
 

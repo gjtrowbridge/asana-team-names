@@ -22,9 +22,9 @@ var Person = React.createClass({
       'borderRadius': '50%'
     };
     var guessImages = {
-      'correct': 'correct.jpeg',
-      'incorrect': 'incorrect.jpg',
-      'neutral': 'neutral.png'
+      'correct': 'correct.svg',
+      'incorrect': 'incorrect.svg',
+      'neutral': 'neutral.svg'
     };
     var guessButtons = _.map(me.props.guessOptions, function(guessOption, index) {
       var correct = guessOption === me.props.name;
@@ -39,8 +39,8 @@ var Person = React.createClass({
     }
 
     return (
-      <div className="Person">
-        <h1>{ me.state.guess === undefined ? '?' : me.props.name }</h1>
+      <div className="Person limited-width horizontal-center">
+        <h1>{ me.state.guess === undefined ? ' ' : me.props.name }</h1>
         <div className="image horizontal-center" style={imgStyle}></div>
         <img className={'stick-figure ' + guessClass}
             src={'/assets/images/' + guessImages[guessClass]} />

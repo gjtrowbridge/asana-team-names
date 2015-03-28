@@ -3,5 +3,5 @@ var Page = require('./components/page/Page.jsx')
 
 React.render(
   <Page src="/api/retrieve" />,
-  document.getElementById('mountPoint')
+  document.getElementById('mount-point')
 )

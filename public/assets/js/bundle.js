@@ -40636,20 +40636,21 @@ var Page = React.createClass({displayName: "Page",
     var personData;
     if (me.state.loaded) {
       personData = me.state.people[me.state.currentIndex];
-      return(
+      mainScreen = (
         React.createElement(Person, React.__spread({},  personData, 
-          {key: me.state.currentIndex, 
-          nextPersonFunction: me.changeCurrentIndex.bind(me, 1), 
-          backgroundImage: me.state.backgroundImage}))
+            {className: "container limited-width", 
+            key: me.state.currentIndex, 
+            nextPersonFunction: me.changeCurrentIndex.bind(me, 1), 
+            backgroundImage: me.state.backgroundImage}))
       )
     } else {
-      return React.createElement(LoadingScreen, null)
+      mainScreen = React.createElement(LoadingScreen, null)
     }
     return (
-      React.createElement("div", {className: ""}, 
+      React.createElement("div", {className: "full-screen"}, 
         mainScreen
       )
-    );
+    )
   }
 });
 
@@ -40682,9 +40683,9 @@ var Person = React.createClass({displayName: "Person",
       'borderRadius': '50%'
     };
     var guessImages = {
-      'correct': 'correct.jpeg',
-      'incorrect': 'incorrect.jpg',
-      'neutral': 'neutral.png'
+      'correct': 'correct.svg',
+      'incorrect': 'incorrect.svg',
+      'neutral': 'neutral.svg'
     };
     var guessButtons = _.map(me.props.guessOptions, function(guessOption, index) {
       var correct = guessOption === me.props.name;
@@ -40699,8 +40700,8 @@ var Person = React.createClass({displayName: "Person",
     }
 
     return (
-      React.createElement("div", {className: "Person"}, 
-        React.createElement("h1", null,  me.state.guess === undefined ? '?' : me.props.name), 
+      React.createElement("div", {className: "Person limited-width horizontal-center"}, 
+        React.createElement("h1", null,  me.state.guess === undefined ? ' ' : me.props.name), 
         React.createElement("div", {className: "image horizontal-center", style: imgStyle}), 
         React.createElement("img", {className: 'stick-figure ' + guessClass, 
             src: '/assets/images/' + guessImages[guessClass]}), 
@@ -40721,7 +40722,7 @@ var Page = require('./components/page/Page.jsx')
 
 React.render(
   React.createElement(Page, {src: "/api/retrieve"}),
-  document.getElementById('mountPoint')
+  document.getElementById('mount-point')
 )
 
 
