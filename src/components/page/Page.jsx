@@ -66,12 +66,12 @@ var Page = React.createClass({
   },
   render: function() {
     var me = this;
-    window.hello = me;
     var mainScreen;
     var personData;
     if (me.state.loaded) {
       personData = me.state.people[me.state.currentIndex];
-      mainScreen = <Person {...personData} 
+      mainScreen = <Person {...personData}
+          key={me.state.currentIndex}
           nextPersonFunction={me.changeCurrentIndex.bind(me, 1)}
           backgroundImage={me.state.backgroundImage} />
     } else {
