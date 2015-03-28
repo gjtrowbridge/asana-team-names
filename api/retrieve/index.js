@@ -1,33 +1,34 @@
-var Q = require('q');
-var getTeamDataPromise = require('./get_team_data.js')
+var scrapeTeamData = require('./scrape_team_data.js');
+var mongoData = require('../mongo/index.js');
+
+// Start the process of scraping/storing the team data
+// when the server starts up
+scrapeTeamData()
+.done(
+  mongoData.storeTeamData,
+  function(err) {
+    throw err;
+  }
+);
 
 var addRetrieveEndpoints = function(express) {
   var router = express.Router();
-  var teamData;
 
   router.get('/', function(req, res) {
-    if (teamData) {
-      res.status(200).json({
-        data: teamData
-      });
-    } else {
-      getTeamDataPromise
-      .done(
-        function(result) {
-          teamData = result;
-          res.status(200).json({
-            data: teamData
-          });
-        },
-        function(err) {
-          res.status(500).json({
-            err: err,
-            message: 'Something went wrong!'
-          });
-        }
-      );
-    }
-
+    mongoData.getTeamData()
+    .done(
+      function(teamData) {
+        res.status(200).json({
+          data: teamData
+        });
+      },
+      function(err) {
+        res.status(500).json({
+          err: err,
+          message: 'Something went wrong!'
+        });
+      }
+    );
   });
 
   return router;
