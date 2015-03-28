@@ -70,16 +70,17 @@ var Page = React.createClass({
     var personData;
     if (me.state.loaded) {
       personData = me.state.people[me.state.currentIndex];
-      mainScreen = <Person {...personData}
+      return(
+        <Person {...personData}
           key={me.state.currentIndex}
           nextPersonFunction={me.changeCurrentIndex.bind(me, 1)}
           backgroundImage={me.state.backgroundImage} />
+      )
     } else {
-      mainScreen = <LoadingScreen />
+      return <LoadingScreen />
     }
     return (
-      <div className="col-2-4">
-        <h1>Asanames</h1>
+      <div className="">
         {mainScreen}
       </div>
     );

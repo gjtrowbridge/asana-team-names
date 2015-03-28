@@ -41,7 +41,7 @@ var Person = React.createClass({
     
     var guessView = (
       <div className="Person">
-        <div className="image" style={imgStyle}></div>
+        <div className="image horizontal-center" style={imgStyle}></div>
         {guessButtons}
       </div>
     );

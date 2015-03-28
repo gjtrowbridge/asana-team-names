@@ -40636,16 +40636,17 @@ var Page = React.createClass({displayName: "Page",
     var personData;
     if (me.state.loaded) {
       personData = me.state.people[me.state.currentIndex];
-      mainScreen = React.createElement(Person, React.__spread({},  personData, 
+      return(
+        React.createElement(Person, React.__spread({},  personData, 
           {key: me.state.currentIndex, 
           nextPersonFunction: me.changeCurrentIndex.bind(me, 1), 
           backgroundImage: me.state.backgroundImage}))
+      )
     } else {
-      mainScreen = React.createElement(LoadingScreen, null)
+      return React.createElement(LoadingScreen, null)
     }
     return (
-      React.createElement("div", {className: "col-2-4"}, 
-        React.createElement("h1", null, "Asanames"), 
+      React.createElement("div", {className: ""}, 
         mainScreen
       )
     );
@@ -40700,7 +40701,7 @@ var Person = React.createClass({displayName: "Person",
     
     var guessView = (
       React.createElement("div", {className: "Person"}, 
-        React.createElement("div", {className: "image", style: imgStyle}), 
+        React.createElement("div", {className: "image horizontal-center", style: imgStyle}), 
         guessButtons
       )
     );
