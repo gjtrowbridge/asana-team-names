@@ -40654,11 +40654,11 @@ var Page = React.createClass({displayName: "Page",
     return (
       React.createElement("div", null, 
         mainScreen, 
-        me.state.loaded && me.state.currentIndex <= 0 ?
-            '' : previousPersonNav, 
+        me.state.loaded && me.state.currentIndex > 0 ?
+            previousPersonNav : '', 
         me.state.loaded &&
-            me.state.currentIndex >= me.state.people.length - 1 ?
-            '' : nextPersonNav
+            me.state.currentIndex < me.state.people.length - 1 ?
+            nextPersonNav : ''
       )
     )
   }
