@@ -40,7 +40,7 @@ var scrapeTeamData = function() {
       var classes = $el.find('div.portrait').attr('class').split(/\s+/);
       _.each(classes, function(className) {
         if (className.slice(0, 6) === 'sprite') {
-          key = '.' + className;
+          key = className;
           return false;
         }
       });
@@ -92,11 +92,12 @@ var scrapeTeamData = function() {
             } else if (classes[1].slice(0, 7) === '.sprite') {
               _.each(declarations, function(decl) {
                 if (decl.property === 'background-position') {
-                  var person = teamData.people[classes[1]];
+                  var className = classes[1].substr(1)
+                  var person = teamData.people[className];
                   if (person) {
                     person.backgroundPosition = decl.value;
                   } else {
-                    teamData.missingPeople[classes[1]] = {
+                    teamData.missingPeople[className] = {
                       backgroundPosition: decl.value
                     };
                   }
