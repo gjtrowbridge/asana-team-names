@@ -13,7 +13,7 @@ module.exports = {
   getTeamData: function() {
     return mongoConnection
     .then(function(db) {
-      var collection = db.collection('teamData');
+      var collection = db.collection('asanamesTeamData');
       return Q.ninvoke(collection, 'findOne', {});
     });
   },
@@ -21,7 +21,7 @@ module.exports = {
     teamData.lastModified = Date.now();
     return mongoConnection
     .then(function(db) {
-      var collection = db.collection('teamData');
+      var collection = db.collection('asanamesTeamData');
       return Q.ninvoke(collection, 'update', {
       }, teamData,
       {
