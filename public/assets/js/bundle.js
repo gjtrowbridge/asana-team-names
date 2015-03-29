@@ -40567,6 +40567,7 @@ module.exports = LoadingScreen;
 var React = require('react');
 var Person = require('../person/Person.jsx');
 var LoadingScreen = require('../loading_screen/LoadingScreen.jsx');
+var ReportCard = require('../report_card/ReportCard.jsx');
 var $ = require('jquery');
 var shuffle = require('mess');
 var _ = require('lodash');
@@ -40576,15 +40577,35 @@ var NUM_GUESS_OPTIONS = 9;
 var Page = React.createClass({displayName: "Page",
   getInitialState: function() {
     return {
-      loaded: false
+      loaded: false,
+      totalGuesses: 0,
+      correctGuesses: 0,
+      canAdvance: false
     };
   },
   changeCurrentIndex: function(offset) {
     this.setState(function(previousState) {
       return {
-        currentIndex: previousState.currentIndex + offset
+        currentIndex: previousState.currentIndex + offset,
+        canAdvance: false
       };
     });
+  },
+  recordGuess: function(correct) {
+    this.setState(function(previousState) {
+      if (correct) {
+        return {
+          totalGuesses: previousState.totalGuesses + 1,
+          correctGuesses: previousState.correctGuesses + 1,
+          canAdvance: true
+        }
+      } else {
+        return {
+          totalGuesses: previousState.totalGuesses + 1,
+          canAdvance: true
+        }
+      }
+    })
   },
   transformPeople: function(data) {
     // Convert people hash into an array
@@ -40634,13 +40655,15 @@ var Page = React.createClass({displayName: "Page",
     var me = this;
     var mainScreen;
     var personData;
+    // Definitely better to track state outside of react for all
+    // the guesses, but this will work for now...
     if (me.state.loaded) {
       personData = me.state.people[me.state.currentIndex];
       mainScreen = (
         React.createElement(Person, React.__spread({},  personData, 
             {className: "container limited-width", 
             key: me.state.currentIndex, 
-            nextPersonFunction: me.changeCurrentIndex.bind(me, 1), 
+            recordGuess: me.recordGuess, 
             backgroundImage: me.state.backgroundImage}))
       )
     } else {
@@ -40648,15 +40671,16 @@ var Page = React.createClass({displayName: "Page",
     }
     var nextPersonNav = React.createElement("button", {className: "next-person", 
         onClick: me.changeCurrentIndex.bind(me, 1)}, "→")
-    var previousPersonNav = React.createElement("button", {className: "previous-person", 
-        onClick: me.changeCurrentIndex.bind(me, -1)}, "←")
+    // var previousPersonNav = <button className="previous-person"
+    //     onClick={me.changeCurrentIndex.bind(me, -1)}>&larr;</button>
 
     return (
       React.createElement("div", null, 
+        React.createElement(ReportCard, {correctGuesses: me.state.correctGuesses, 
+            totalGuesses: me.state.totalGuesses}), 
+
         mainScreen, 
-        me.state.loaded && me.state.currentIndex > 0 ?
-            previousPersonNav : '', 
-        me.state.loaded &&
+        me.state.loaded && me.state.canAdvance &&
             me.state.currentIndex < me.state.people.length - 1 ?
             nextPersonNav : ''
       )
@@ -40668,7 +40692,7 @@ module.exports = Page;
 
 
 
-},{"../loading_screen/LoadingScreen.jsx":160,"../person/Person.jsx":162,"jquery":2,"lodash":3,"mess":4,"react":159}],162:[function(require,module,exports){
+},{"../loading_screen/LoadingScreen.jsx":160,"../person/Person.jsx":162,"../report_card/ReportCard.jsx":163,"jquery":2,"lodash":3,"mess":4,"react":159}],162:[function(require,module,exports){
 var React = require('react');
 var _ = require('lodash');
 
@@ -40679,9 +40703,11 @@ var Person = React.createClass({displayName: "Person",
     };
   },
   resolveGuess: function(isCorrect) {
-    this.setState({
+    var me = this;
+    me.setState({
       guess: isCorrect
     });
+    me.props.recordGuess(isCorrect);
   },
   render: function() {
     var me = this;
@@ -40730,6 +40756,64 @@ module.exports = Person;
 
 },{"lodash":3,"react":159}],163:[function(require,module,exports){
 var React = require('react');
+
+var ReportCard = React.createClass({displayName: "ReportCard",
+  calculateGrade: function(percentage) {
+    if (percentage === 1) {
+      return 'A+';
+    } else if (percentage >= 0.95) {
+      return 'A';
+    } else if (percentage >= 0.9) {
+      return 'A-';
+    } else if (percentage >= 0.87) {
+      return 'B+';
+    } else if (percentage >= 0.84) {
+      return 'B';
+    } else if (percentage >= 0.80) {
+      return 'B-';
+    } else if (percentage >= 0.77) {
+      return 'C+';
+    } else if (percentage >= 0.74) {
+      return 'C';
+    } else if (percentage >= 0.7) {
+      return 'C-';
+    } else if (percentage >= 0.67) {
+      return 'D+';
+    } else if (percentage >= 0.64) {
+      return 'D';
+    } else if (percentage >= 0.6) {
+      return 'D-';
+    } else {
+      return 'F';
+    }
+  },
+  render: function() {
+    var percentage;
+    if (this.props.totalGuesses === 0) {
+      percentage = 0;
+    } else {
+      percentage = this.props.correctGuesses / this.props.totalGuesses;
+    }
+    var grade = this.calculateGrade(percentage);
+
+    // Truncate percentage for easy display
+    percentage = Math.floor(percentage * 1000) / 10;
+    var guessString = this.props.correctGuesses.toString() +
+        ' / ' + this.props.totalGuesses.toString();
+    return (
+      React.createElement("div", {className: "report-card"}, 
+        React.createElement("h4", null, "Grade: ", React.createElement("strong", null, grade)), 
+        React.createElement("h5", null, guessString + ' (' + percentage + '%)')
+      )    
+    );
+  }
+});
+
+module.exports = ReportCard;
+
+
+},{"react":159}],164:[function(require,module,exports){
+var React = require('react');
 var Page = require('./components/page/Page.jsx')
 
 React.render(
@@ -40738,4 +40822,4 @@ React.render(
 )
 
 
-},{"./components/page/Page.jsx":161,"react":159}]},{},[163]);
+},{"./components/page/Page.jsx":161,"react":159}]},{},[164]);

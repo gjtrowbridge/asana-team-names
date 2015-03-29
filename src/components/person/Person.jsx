@@ -8,9 +8,11 @@ var Person = React.createClass({
     };
   },
   resolveGuess: function(isCorrect) {
-    this.setState({
+    var me = this;
+    me.setState({
       guess: isCorrect
     });
+    me.props.recordGuess(isCorrect);
   },
   render: function() {
     var me = this;

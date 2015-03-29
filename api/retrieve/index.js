@@ -3,9 +3,16 @@ var mongoData = require('../mongo/index.js');
 
 // Start the process of scraping/storing the team data
 // when the server starts up
+console.log('Scraping team data for storage...');
 scrapeTeamData()
+.then(function(teamData) {
+  console.log('Team data scraped successfully!  Storing...');
+  mongoData.storeTeamData(teamData)
+})
 .done(
-  mongoData.storeTeamData,
+  function() {
+    console.log('Team data stored successfully!');
+  },
   function(err) {
     throw err;
   }

@@ -493,3 +493,15 @@ h1,
 .Person p {
   text-align: justify;
 }
+div.report-card {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  margin: 0;
+  text-align: center;
+  width: 100px;
+  height: 100px;
+  box-shadow: 1px 1px 1px;
+  border-radius: 5px;
+  background-color: #e5e5e5;
+}
