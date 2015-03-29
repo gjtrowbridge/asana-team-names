@@ -40571,7 +40571,7 @@ var $ = require('jquery');
 var shuffle = require('mess');
 var _ = require('lodash');
 
-var NUM_GUESS_OPTIONS = 8;
+var NUM_GUESS_OPTIONS = 9;
 
 var Page = React.createClass({displayName: "Page",
   getInitialState: function() {
@@ -40646,9 +40646,19 @@ var Page = React.createClass({displayName: "Page",
     } else {
       mainScreen = React.createElement(LoadingScreen, null)
     }
+    var nextPersonDiv = React.createElement("div", {className: "next-person", 
+        onClick: me.changeCurrentIndex.bind(me, 1)}, "→")
+    var previousPersonDiv = React.createElement("div", {className: "previous-person", 
+        onClick: me.changeCurrentIndex.bind(me, -1)}, "←")
+
     return (
-      React.createElement("div", {className: "full-screen"}, 
-        mainScreen
+      React.createElement("div", null, 
+        mainScreen, 
+        me.state.loaded && me.state.currentIndex <= 0 ?
+            '' : previousPersonDiv, 
+        me.state.loaded &&
+            me.state.currentIndex >= me.state.people.length - 1 ?
+            '' : nextPersonDiv
       )
     )
   }
@@ -40707,10 +40717,8 @@ var Person = React.createClass({displayName: "Person",
         React.createElement("div", {className: "image horizontal-center", style: imgStyle}), 
         React.createElement("img", {className: 'stick-figure ' + guessClass, 
             src: '/assets/images/' + guessImages[guessClass]}), 
-        React.createElement("div", {className: "info-section"}, 
-          me.state.guess !== undefined ? description : '', 
-          me.state.guess === undefined ? guessButtons : ''
-        )
+        me.state.guess !== undefined ? description : '', 
+        me.state.guess === undefined ? guessButtons : ''
       )
     );
   }

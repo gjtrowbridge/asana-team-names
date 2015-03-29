@@ -46,10 +46,8 @@ var Person = React.createClass({
         <div className="image horizontal-center" style={imgStyle}></div>
         <img className={'stick-figure ' + guessClass}
             src={'/assets/images/' + guessImages[guessClass]} />
-        <div className="info-section">
-          {me.state.guess !== undefined ? description : ''}
-          {me.state.guess === undefined ? guessButtons : ''}
-        </div>
+        {me.state.guess !== undefined ? description : ''}
+        {me.state.guess === undefined ? guessButtons : ''}
       </div>
     );
   }

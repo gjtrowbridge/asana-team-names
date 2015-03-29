@@ -5,7 +5,7 @@ var $ = require('jquery');
 var shuffle = require('mess');
 var _ = require('lodash');
 
-var NUM_GUESS_OPTIONS = 8;
+var NUM_GUESS_OPTIONS = 9;
 
 var Page = React.createClass({
   getInitialState: function() {
@@ -80,9 +80,19 @@ var Page = React.createClass({
     } else {
       mainScreen = <LoadingScreen  />
     }
+    var nextPersonDiv = <div className="next-person"
+        onClick={me.changeCurrentIndex.bind(me, 1)}>&rarr;</div>
+    var previousPersonDiv = <div className="previous-person"
+        onClick={me.changeCurrentIndex.bind(me, -1)}>&larr;</div>
+
     return (
-      <div className="full-screen">
+      <div>
         {mainScreen}
+        {me.state.loaded && me.state.currentIndex <= 0 ?
+            '' : previousPersonDiv}
+        {me.state.loaded &&
+            me.state.currentIndex >= me.state.people.length - 1 ?
+            '' : nextPersonDiv}
       </div>
     )
   }

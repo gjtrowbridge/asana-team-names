@@ -416,7 +416,7 @@ body {
   background: radial-gradient(#fff, #e5e5e5);
 }
 .limited-width {
-  width: 600px;
+  width: 400px;
 }
 h1,
 .loading {
@@ -440,6 +440,19 @@ h1,
 .horizontal-center {
   margin-left: auto;
   margin-right: auto;
+}
+.next-person,
+.previous-person {
+  font-size: 5em;
+  font-weight: bold;
+  position: absolute;
+  top: 40%;
+}
+.next-person {
+  right: 20px;
+}
+.previous-person {
+  left: 20px;
 }
 .Person .stick-figure {
   margin: 0 auto;
@@ -466,15 +479,16 @@ h1,
 .Person h1 {
   margin-bottom: 120px;
 }
-.Person .info-section {
-  height: 120px;
-}
 .Person button {
   display: inline-block;
-  width: 25%;
+  width: 33%;
   padding: 10px;
   height: 60px;
   border-radius: 5%;
   background-color: #1f8dd6;
   color: #e5e5e5;
+  vertical-align: top;
+}
+.Person p {
+  text-align: justify;
 }
