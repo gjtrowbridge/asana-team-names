@@ -7,7 +7,7 @@ console.log('Scraping team data for storage...');
 scrapeTeamData()
 .then(function(teamData) {
   console.log('Team data scraped successfully!  Storing...');
-  mongoData.storeTeamData(teamData)
+  return mongoData.storeTeamData(teamData)
 })
 .done(
   function() {
