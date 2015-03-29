@@ -40646,19 +40646,19 @@ var Page = React.createClass({displayName: "Page",
     } else {
       mainScreen = React.createElement(LoadingScreen, null)
     }
-    var nextPersonDiv = React.createElement("div", {className: "next-person", 
+    var nextPersonNav = React.createElement("button", {className: "next-person", 
         onClick: me.changeCurrentIndex.bind(me, 1)}, "→")
-    var previousPersonDiv = React.createElement("div", {className: "previous-person", 
+    var previousPersonNav = React.createElement("button", {className: "previous-person", 
         onClick: me.changeCurrentIndex.bind(me, -1)}, "←")
 
     return (
       React.createElement("div", null, 
         mainScreen, 
         me.state.loaded && me.state.currentIndex <= 0 ?
-            '' : previousPersonDiv, 
+            '' : previousPersonNav, 
         me.state.loaded &&
             me.state.currentIndex >= me.state.people.length - 1 ?
-            '' : nextPersonDiv
+            '' : nextPersonNav
       )
     )
   }

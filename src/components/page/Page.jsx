@@ -80,19 +80,19 @@ var Page = React.createClass({
     } else {
       mainScreen = <LoadingScreen  />
     }
-    var nextPersonDiv = <div className="next-person"
-        onClick={me.changeCurrentIndex.bind(me, 1)}>&rarr;</div>
-    var previousPersonDiv = <div className="previous-person"
-        onClick={me.changeCurrentIndex.bind(me, -1)}>&larr;</div>
+    var nextPersonNav = <button className="next-person"
+        onClick={me.changeCurrentIndex.bind(me, 1)}>&rarr;</button>
+    var previousPersonNav = <button className="previous-person"
+        onClick={me.changeCurrentIndex.bind(me, -1)}>&larr;</button>
 
     return (
       <div>
         {mainScreen}
         {me.state.loaded && me.state.currentIndex <= 0 ?
-            '' : previousPersonDiv}
+            '' : previousPersonNav}
         {me.state.loaded &&
             me.state.currentIndex >= me.state.people.length - 1 ?
-            '' : nextPersonDiv}
+            '' : nextPersonNav}
       </div>
     )
   }

@@ -447,6 +447,7 @@ h1,
   font-weight: bold;
   position: absolute;
   top: 40%;
+  border: none;
 }
 .next-person {
   right: 20px;
