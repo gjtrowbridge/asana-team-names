@@ -10,7 +10,8 @@
     "build-css": "stylus --include-css src/ --out public/assets/styles",
     "watch-css": "stylus -w --include-css src/ --out public/assets/styles",
     "build-react": "browserify -t [reactify --es6] src/main.js > public/assets/js/bundle.js",
-    "watch-react": "watchify -t [reactify --es6] src/main.js -o public/assets/js/bundle.js"
+    "watch-react": "watchify -t [reactify --es6] src/main.js -o public/assets/js/bundle.js",
+    "postinstall": "npm run build"
   },
   "author": "Greg Trowbridge",
   "license": "ISC",
