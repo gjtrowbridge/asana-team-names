@@ -441,6 +441,12 @@ h1,
   margin-left: auto;
   margin-right: auto;
 }
+.github {
+  position: absolute;
+  bottom: 1px;
+  right: 1px;
+  font-size: 12px;
+}
 .next-person,
 .previous-person {
   font-size: 5em;
