@@ -77,32 +77,34 @@ var scrapeTeamData = function() {
       var cssObj = cssParser.parse(css)
       _.each(cssObj.stylesheet.rules, function(rule) {
         if (Array.isArray(rule.selectors)) {
-          var classes = rule.selectors[0].split(/\s+/);
-          var declarations = rule.declarations;
-          if (classes[0] === '.team-page') {
-            if (classes[1] === '.portrait') {
-              _.each(declarations, function(decl) {
-                if (decl.property === 'background-image') {
-                  var url = decl.value;
-                  url = url.replace('url("..', '');
-                  url = url.replace('")', '');
-                  teamData.backgroundImage = rootUrl + '/assets' + url;
-                }
-              });
-            } else if (classes[1].slice(0, 7) === '.sprite') {
-              _.each(declarations, function(decl) {
-                if (decl.property === 'background-position') {
-                  var className = classes[1].substr(1)
-                  var person = teamData.people[className];
-                  if (person) {
-                    person.backgroundPosition = decl.value;
-                  } else {
-                    teamData.missingPeople[className] = {
-                      backgroundPosition: decl.value
-                    };
+          if (rule.selectors.length > 1) {
+            var classes = rule.selectors[1].split(/\s+/);
+            var declarations = rule.declarations;
+            if (classes[0] === '.team-page') {
+              if (classes[1] === '.portrait') {
+                _.each(declarations, function(decl) {
+                  if (decl.property === 'background-image') {
+                    var url = decl.value;
+                    url = url.replace('url("..', '');
+                    url = url.replace('")', '');
+                    teamData.backgroundImage = rootUrl + '/assets' + url;
                   }
-                }
-              });
+                });
+              } else if (classes[1].slice(0, 7) === '.sprite') {
+                _.each(declarations, function(decl) {
+                  if (decl.property === 'background-position') {
+                    var className = classes[1].substr(1)
+                    var person = teamData.people[className];
+                    if (person) {
+                      person.backgroundPosition = decl.value;
+                    } else {
+                      teamData.missingPeople[className] = {
+                        backgroundPosition: decl.value
+                      };
+                    }
+                  }
+                });
+              }
             }
           }
         }
