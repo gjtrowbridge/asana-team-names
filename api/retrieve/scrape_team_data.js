@@ -85,8 +85,13 @@ var scrapeTeamData = function() {
                 _.each(declarations, function(decl) {
                   if (decl.property === 'background-image') {
                     var url = decl.value;
-                    url = url.replace('url("..', '');
-                    url = url.replace('")', '');
+                    console.log(url);
+                    url = url.replace(/url\(/g, '');
+                    url = url.replace(/"/g, '');
+                    url = url.replace(/'/g, '');
+                    url = url.replace(/\.\./g, '');
+                    url = url.replace(/\)/g, '');
+                    console.log(url);
                     teamData.backgroundImage = rootUrl + '/assets' + url;
                   }
                 });
