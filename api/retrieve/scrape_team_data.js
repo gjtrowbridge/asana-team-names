@@ -61,10 +61,16 @@ var scrapeTeamData = function() {
     var url = '';
     $('link').each(function(index, $el) {
       if ($el.attribs.rel === 'stylesheet') {
-        url = rootUrl + $el.attribs.href;
+        var href = $el.attribs.href;
+        if (href.slice(0,2) === "//") {
+          url = "https:" + href;
+        } else {
+          url = rootUrl + $el.attribs.href;
+        }
         return false;
       }
     });
+    console.log(url);
     return url;
   })
 
