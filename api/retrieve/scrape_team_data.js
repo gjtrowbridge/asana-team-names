@@ -70,7 +70,7 @@ var scrapeTeamData = function() {
         return false;
       }
     });
-    console.log(url);
+    url = "https://asana.com/assets/dist/css/team-sprite.css"
     return url;
   })
 
@@ -91,20 +91,18 @@ var scrapeTeamData = function() {
                 _.each(declarations, function(decl) {
                   if (decl.property === 'background-image') {
                     var url = decl.value;
-                    console.log(url);
                     url = url.replace(/url\(/g, '');
                     url = url.replace(/"/g, '');
                     url = url.replace(/'/g, '');
                     url = url.replace(/\.\./g, '');
                     url = url.replace(/\)/g, '');
-                    console.log(url);
-                    teamData.backgroundImage = rootUrl + '/assets' + url;
+                    teamData.backgroundImage = rootUrl + url;
                   }
                 });
               } else if (classes[1].slice(0, 7) === '.sprite') {
                 _.each(declarations, function(decl) {
                   if (decl.property === 'background-position') {
-                    var className = classes[1].substr(1)
+                    var className = classes[1].substr(1);
                     var person = teamData.people[className];
                     if (person) {
                       person.backgroundPosition = decl.value;
